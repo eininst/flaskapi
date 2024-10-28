@@ -6,7 +6,7 @@ management_application/static/uploads/photos
 !management_application/static/uploads/photos/adlsc-shop-pic-default@2x.png
 cron/nohup.out
 config/development.py
-#dist
+dist
 
 # Created by https://www.gitignore.io/api/visualstudiocode
 
