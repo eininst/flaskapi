@@ -15,5 +15,5 @@ python = "^3.9"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = ["Flask>=2.0", "pydantic>=2.4"]
