@@ -20,7 +20,7 @@ class BookQuery(BaseModel):
 
 
 @app.get("/openapi", summary="get books", tags=[book_tag])
-def get_book(query: BookQuery) -> BookQuery:
+def get_book(query: BookQuery) :
     """
     get all books
     """

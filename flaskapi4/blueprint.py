@@ -78,6 +78,10 @@ class APIBlueprint(APIScaffold, Blueprint):
         if api is self:
             raise ValueError("Cannot register a api blueprint on itself")
 
+        if is_package(api.import_name):
+            for name in find_modules(api.import_name, recursive=True, include_packages=False):
+                import_string(name)
+
         # Merge tags from the nested APIBlueprint
         for tag in api.tags:
             if tag.name not in self.tag_names:
@@ -92,10 +96,6 @@ class APIBlueprint(APIScaffold, Blueprint):
 
         # Merge component schemas from the nested APIBlueprint
         self.components_schemas.update(api.components_schemas)
-
-        if is_package(api.import_name):
-            for name in find_modules(api.import_name, recursive=True, include_packages=False):
-                import_string(name)
 
         # Register the nested APIBlueprint as a blueprint
         self.register_blueprint(api)

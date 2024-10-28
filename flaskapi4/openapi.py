@@ -299,6 +299,10 @@ class OpenAPI(APIScaffold, Flask):
             api: The APIBlueprint instance to register.
 
         """
+        if is_package(api.import_name):
+            for name in find_modules(api.import_name, recursive=True, include_packages=False):
+                import_string(name)
+
         for tag in api.tags:
             if tag.name not in self.tag_names:
                 # Append tag to the list of tags
@@ -314,13 +318,6 @@ class OpenAPI(APIScaffold, Flask):
         self.components_schemas.update(**api.components_schemas)
 
         # Register the APIBlueprint with the current instance
-
-        # print(api.import_name)
-
-        if is_package(api.import_name):
-            for name in find_modules(api.import_name, recursive=True, include_packages=False):
-                import_string(name)
-
         self.register_blueprint(api)
 
 
