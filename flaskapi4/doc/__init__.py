@@ -1,7 +1,7 @@
-from flaskapi.doc import redoc, rapidoc, scalar
-from flaskapi.doc.rapidoc.plugins import RegisterPlugin
-from flaskapi.doc.redoc.plugins import RegisterPlugin
-from flaskapi.doc.scalar.plugins import RegisterPlugin
+from flaskapi4.doc import redoc, rapidoc, scalar
+from flaskapi4.doc.rapidoc.plugins import RegisterPlugin
+from flaskapi4.doc.redoc.plugins import RegisterPlugin
+from flaskapi4.doc.scalar.plugins import RegisterPlugin
 
 REDOC = "redoc"
 RAPIDOC = "rapidoc"

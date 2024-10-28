@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pydantic import BaseModel, Field
-from flaskapi import Info, OpenAPI, Tag
+from flaskapi4 import Info, OpenAPI, Tag
 
 
 class Unauthorized(BaseModel):

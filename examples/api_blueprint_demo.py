@@ -6,8 +6,8 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from flaskapi import APIBlueprint, OpenAPI
-from flaskapi import Tag, Info
+from flaskapi4 import APIBlueprint, OpenAPI
+from flaskapi4 import Tag, Info
 
 info = Info(title='book API', version='1.0.0')
 

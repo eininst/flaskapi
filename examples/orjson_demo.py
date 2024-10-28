@@ -5,8 +5,8 @@
 import orjson
 from flask.json.provider import JSONProvider
 
-from flaskapi import Info
-from flaskapi import OpenAPI
+from flaskapi4 import Info
+from flaskapi4 import OpenAPI
 
 
 class OrJSONProvider(JSONProvider):

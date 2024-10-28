@@ -5,8 +5,8 @@ import os
 
 from flask import Blueprint, render_template_string, current_app
 
-from flaskapi.doc.redoc.templates import redoc_html_string
-from flaskapi.plugins import BasePlugin
+from flaskapi4.doc.redoc.templates import redoc_html_string
+from flaskapi4.plugins import BasePlugin
 
 
 class RegisterPlugin(BasePlugin):

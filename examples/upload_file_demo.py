@@ -6,7 +6,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-from flaskapi import OpenAPI, FileStorage
+from flaskapi4 import OpenAPI, FileStorage
 
 app = OpenAPI(__name__)
 

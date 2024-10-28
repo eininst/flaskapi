@@ -1,4 +1,4 @@
-from flaskapi import OpenAPI, APIBlueprint
+from flaskapi4 import OpenAPI, APIBlueprint
 
 app = OpenAPI(__name__)
 

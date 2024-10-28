@@ -1,20 +1,23 @@
+# -*- coding: utf-8 -*-
+# @Author  : llc
+# @Time    : 2024/4/22 16:13
 import os
 
 from flask import Blueprint, render_template_string, current_app
-from flaskapi.plugins import BasePlugin
+from flaskapi4.plugins import BasePlugin
 
-from .templates import rapidoc_html_string
+from .templates import scalar_html_string
 
 
 class RegisterPlugin(BasePlugin):
-    name = "rapidoc"
-    display_name = "RapiDoc"
+    name = "scalar"
+    display_name = "Scalar"
 
     @classmethod
     def register(cls, doc_url: str) -> Blueprint:
         _here = os.path.dirname(__file__)
         template_folder = os.path.join(_here, "templates")
-        static_folder = os.path.join(template_folder, "rapidoc")
+        static_folder = os.path.join(template_folder, "scalar")
         blueprint = Blueprint(
             cls.name,
             __name__,
@@ -26,9 +29,9 @@ class RegisterPlugin(BasePlugin):
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
-                current_app.config.get("RAPIDOC_HTML_STRING") or rapidoc_html_string,
+                current_app.config.get("SCALAR_HTML_STRING") or scalar_html_string,
                 doc_url=doc_url,
-                rapidoc_config=current_app.config.get("RAPIDOC_CONFIG")
+                scalar_config=current_app.config.get("SCALAR_CONFIG")
             )
         )
 

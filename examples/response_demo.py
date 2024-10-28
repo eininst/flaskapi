@@ -8,8 +8,8 @@ from http import HTTPStatus
 from flask import make_response
 from pydantic import BaseModel, Field
 
-from flaskapi import Info
-from flaskapi import OpenAPI, APIBlueprint
+from flaskapi4 import Info
+from flaskapi4 import OpenAPI, APIBlueprint
 
 app = OpenAPI(__name__, info=Info(title="Hello API", version="1.0.0"))
 
