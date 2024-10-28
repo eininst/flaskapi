@@ -4,8 +4,8 @@ version = "0.1.1"
 description = "flaskapi4"
 authors = ["王梓清 <9464553+superwzq1993@user.noreply.gitee.com>"]
 readme = "README.md"
-homepage = "https://github.com/eininst/flask-openapi"
-documentation = "https://github.com/eininst/flask-openapi"
+homepage = "https://github.com/eininst/flask-openapi4"
+documentation = "https://github.com/eininst/flask-openapi4"
 
 
 [tool.poetry.dependencies]
