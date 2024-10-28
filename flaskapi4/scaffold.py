@@ -160,9 +160,11 @@ class APIScaffold:
 
         def decorator(func) -> Callable:
             annotations = func.__annotations__
+
+            __responses = responses
             if 'return' in annotations and annotations['return']:
-                if not self.responses:
-                    self.responses = {'200': annotations['return']}
+                if not __responses:
+                    __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
                 self._collect_openapi_info(
@@ -173,7 +175,7 @@ class APIScaffold:
                     description=description,
                     external_docs=external_docs,
                     operation_id=operation_id,
-                    responses=responses,
+                    responses=__responses,
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
@@ -228,9 +230,11 @@ class APIScaffold:
 
         def decorator(func) -> Callable:
             annotations = func.__annotations__
+
+            __responses = responses
             if 'return' in annotations and annotations['return']:
-                if not self.responses:
-                    self.responses = {'200': annotations['return']}
+                if not __responses:
+                    __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
                 self._collect_openapi_info(
@@ -241,7 +245,7 @@ class APIScaffold:
                     description=description,
                     external_docs=external_docs,
                     operation_id=operation_id,
-                    responses=responses,
+                    responses=__responses,
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
@@ -296,9 +300,10 @@ class APIScaffold:
 
         def decorator(func) -> Callable:
             annotations = func.__annotations__
+            __responses = responses
             if 'return' in annotations and annotations['return']:
-                if not self.responses:
-                    self.responses = {'200': annotations['return']}
+                if not __responses:
+                    __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
                 self._collect_openapi_info(
@@ -309,7 +314,7 @@ class APIScaffold:
                     description=description,
                     external_docs=external_docs,
                     operation_id=operation_id,
-                    responses=responses,
+                    responses=__responses,
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
@@ -364,9 +369,10 @@ class APIScaffold:
 
         def decorator(func) -> Callable:
             annotations = func.__annotations__
+            __responses = responses
             if 'return' in annotations and annotations['return']:
-                if not self.responses:
-                    self.responses = {'200': annotations['return']}
+                if not __responses:
+                    __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
                 self._collect_openapi_info(
@@ -377,7 +383,7 @@ class APIScaffold:
                     description=description,
                     external_docs=external_docs,
                     operation_id=operation_id,
-                    responses=responses,
+                    responses=__responses,
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
@@ -432,9 +438,10 @@ class APIScaffold:
 
         def decorator(func) -> Callable:
             annotations = func.__annotations__
+            __responses = responses
             if 'return' in annotations and annotations['return']:
-                if not self.responses:
-                    self.responses = {'200': annotations['return']}
+                if not __responses:
+                    __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
                 self._collect_openapi_info(
@@ -445,7 +452,7 @@ class APIScaffold:
                     description=description,
                     external_docs=external_docs,
                     operation_id=operation_id,
-                    responses=responses,
+                    responses=__responses,
                     deprecated=deprecated,
                     security=security,
                     servers=servers,

@@ -34,7 +34,7 @@ from .templates import openapi_html_string
 from .types import ParametersTuple
 from .types import ResponseDict
 from .types import SecuritySchemesDict
-from .utils import HTTPMethod
+from .utils import HTTPMethod, is_package
 from .utils import HTTP_STATUS
 from .utils import convert_responses_key_to_string
 from .utils import get_model_schema
@@ -45,7 +45,7 @@ from .utils import make_validation_error_response
 from .utils import parse_and_store_tags
 from .utils import parse_method
 from .utils import parse_parameters
-
+from werkzeug.utils import find_modules, import_string
 
 class OpenAPI(APIScaffold, Flask):
     def __init__(
@@ -314,6 +314,13 @@ class OpenAPI(APIScaffold, Flask):
         self.components_schemas.update(**api.components_schemas)
 
         # Register the APIBlueprint with the current instance
+
+        # print(api.import_name)
+
+        if is_package(api.import_name):
+            for name in find_modules(api.import_name, recursive=True, include_packages=False):
+                import_string(name)
+
         self.register_blueprint(api)
 
 

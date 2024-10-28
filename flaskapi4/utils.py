@@ -3,6 +3,7 @@
 # @Time    : 2021/5/1 21:34
 
 import inspect
+import os
 import re
 import sys
 from enum import Enum
@@ -111,6 +112,9 @@ def get_operation_id_for_path(*, name: str, path: str, method: str) -> str:
 
     return re.sub(r"\W", "_", name + path) + "_" + method.lower()
 
+def is_package(package_path):
+    init_file = os.path.join(package_path, '__init__.py')
+    return os.path.isfile(init_file)
 
 def get_model_schema(model: Type[BaseModel], mode: JsonSchemaMode = "validation") -> dict:
     """Converts a Pydantic model to an OpenAPI schema."""

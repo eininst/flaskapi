@@ -11,7 +11,7 @@ from .models import Tag
 from .scaffold import APIScaffold
 from .types import ParametersTuple
 from .types import ResponseDict
-from .utils import HTTPMethod
+from .utils import HTTPMethod, is_package
 from .utils import convert_responses_key_to_string
 from .utils import get_operation
 from .utils import get_operation_id_for_path
@@ -20,7 +20,7 @@ from .utils import parse_and_store_tags
 from .utils import parse_method
 from .utils import parse_parameters
 from .utils import parse_rule
-
+from werkzeug.utils import find_modules, import_string
 
 class APIBlueprint(APIScaffold, Blueprint):
     def __init__(
@@ -92,6 +92,10 @@ class APIBlueprint(APIScaffold, Blueprint):
 
         # Merge component schemas from the nested APIBlueprint
         self.components_schemas.update(api.components_schemas)
+
+        if is_package(api.import_name):
+            for name in find_modules(api.import_name, recursive=True, include_packages=False):
+                import_string(name)
 
         # Register the nested APIBlueprint as a blueprint
         self.register_blueprint(api)
