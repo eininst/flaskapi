@@ -6,9 +6,9 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-from flaskapi4 import OpenAPI, FileStorage
+from flaskapi4 import Flaskapi, FileStorage
 
-app = OpenAPI(__name__)
+app = Flaskapi(__name__)
 
 
 class UploadFileForm(BaseModel):

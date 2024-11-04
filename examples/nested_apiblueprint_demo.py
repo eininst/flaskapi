@@ -1,6 +1,6 @@
-from flaskapi4 import OpenAPI, APIBlueprint
+from flaskapi4 import Flaskapi, APIBlueprint
 
-app = OpenAPI(__name__)
+app = Flaskapi(__name__)
 
 api = APIBlueprint('book', __name__, url_prefix='/api/book')
 api_english = APIBlueprint('english', __name__)

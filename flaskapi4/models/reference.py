@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 class Reference(BaseModel):
     """
-    https://spec.openapis.org/oas/v3.1.0#reference-object
+    https://spec.Flaskapis.org/oas/v3.1.0#reference-object
     """
 
     ref: str = Field(..., alias="$ref")

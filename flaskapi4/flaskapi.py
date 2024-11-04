@@ -19,18 +19,18 @@ else:  # pragma: no cover
     from importlib_metadata import entry_points  # type: ignore
 
 from .blueprint import APIBlueprint
-from .commands import openapi_command
+from .commands import Flaskapi_command
 from .models import APISpec
 from .models import Components
 from .models import ExternalDocumentation
 from .models import Info
-from .models import OPENAPI3_REF_PREFIX
+from .models import Flaskapi3_REF_PREFIX
 from .models import Schema
 from .models import Server
 from .models import Tag
 from .models import ValidationErrorModel
 from .scaffold import APIScaffold
-from .templates import openapi_html_string
+from .templates import Flaskapi_html_string
 from .types import ParametersTuple
 from .types import ResponseDict
 from .types import SecuritySchemesDict
@@ -47,7 +47,7 @@ from .utils import parse_method
 from .utils import parse_parameters
 from werkzeug.utils import find_modules, import_string
 
-class OpenAPI(APIScaffold, Flask):
+class Flaskapi(APIScaffold, Flask):
     def __init__(
             self,
             import_name: str,
@@ -59,7 +59,7 @@ class OpenAPI(APIScaffold, Flask):
             servers: Optional[List[Server]] = None,
             external_docs: Optional[ExternalDocumentation] = None,
             operation_id_callback: Callable = get_operation_id_for_path,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             validation_error_status: Union[str, int] = 422,
             validation_error_model: Type[BaseModel] = ValidationErrorModel,
             validation_error_callback: Callable = make_validation_error_response,
@@ -69,45 +69,45 @@ class OpenAPI(APIScaffold, Flask):
             **kwargs: Any
     ) -> None:
         """
-        OpenAPI class that provides REST API functionality along with Swagger UI and Redoc.
+        Flaskapi class that provides REST API functionality along with Swagger UI and Redoc.
 
         Args:
             import_name: The import name for the Flask application.
             info: Information about the API (title, version, etc.).
-                See https://spec.openapis.org/oas/v3.1.0#info-object.
+                See https://spec.Flaskapis.org/oas/v3.1.0#info-object.
             security_schemes: Security schemes for the API.
-                See https://spec.openapis.org/oas/v3.1.0#security-scheme-object.
+                See https://spec.Flaskapis.org/oas/v3.1.0#security-scheme-object.
             responses: API responses should be either a subclass of BaseModel, a dictionary, or None.
             servers: An array of Server objects providing connectivity information to a target server.
             external_docs: External documentation for the API.
-                See: https://spec.openapis.org/oas/v3.1.0#external-documentation-object.
+                See: https://spec.Flaskapis.org/oas/v3.1.0#external-documentation-object.
             operation_id_callback: Callback function for custom operation ID generation.
                 Receives name (str), path (str), and method (str) parameters.
                 Defaults to `get_operation_id_for_path` from utils.
-            openapi_extensions: Extensions to the OpenAPI Schema.
-                See https://spec.openapis.org/oas/v3.1.0#specification-extensions.
+            Flaskapi_extensions: Extensions to the Flaskapi Schema.
+                See https://spec.Flaskapis.org/oas/v3.1.0#specification-extensions.
             validation_error_status:
                 HTTP Status of the response given when a validation error is detected by pydantic.
                 Defaults to 422.
-            validation_error_model: Validation error response model for OpenAPI Specification.
+            validation_error_model: Validation error response model for Flaskapi Specification.
             validation_error_callback: Validation error response callback, the return format corresponds to
                 the validation_error_model.
-            doc_ui: Enable OpenAPI document UI (Swagger UI and Redoc).
+            doc_ui: Enable Flaskapi document UI (Swagger UI and Redoc).
                 Defaults to True.
-            doc_prefix: URL prefix used for OpenAPI document and UI.
-                Defaults to "/openapi".
-            doc_url: URL for accessing the OpenAPI specification document in JSON format.
-                Defaults to "/openapi.json".
+            doc_prefix: URL prefix used for Flaskapi document and UI.
+                Defaults to "/Flaskapi".
+            doc_url: URL for accessing the Flaskapi specification document in JSON format.
+                Defaults to "/Flaskapi.json".
             **kwargs: Additional kwargs to be passed to Flask.
         """
-        super(OpenAPI, self).__init__(import_name, **kwargs)
+        super(Flaskapi, self).__init__(import_name, **kwargs)
 
-        # Set OpenAPI version and API information
+        # Set Flaskapi version and API information
         if not plugins:
             plugins = doc.plugins()
 
-        self.openapi_version = "3.1.0"
-        self.info = info or Info(title="OpenAPI", version="1.0.0")
+        self.Flaskapi_version = "3.1.0"
+        self.info = info or Info(title="Flaskapi", version="1.0.0")
 
         self.plugins = plugins
         # Set security schemes, responses, paths and components
@@ -136,20 +136,20 @@ class OpenAPI(APIScaffold, Flask):
         # Set the operation ID callback function
         self.operation_id_callback: Callable = operation_id_callback
 
-        # Set OpenAPI extensions
-        self.openapi_extensions = openapi_extensions or {}
+        # Set Flaskapi extensions
+        self.Flaskapi_extensions = Flaskapi_extensions or {}
 
-        # Set HTTP Response of validation errors within OpenAPI
+        # Set HTTP Response of validation errors within Flaskapi
         self.validation_error_status = str(validation_error_status)
         self.validation_error_model = validation_error_model
         self.validation_error_callback = validation_error_callback
 
-        # Initialize the OpenAPI documentation UI
+        # Initialize the Flaskapi documentation UI
         if doc_ui:
             self._init_doc()
 
-        # Add the OpenAPI command
-        self.cli.add_command(openapi_command)  # type: ignore
+        # Add the Flaskapi command
+        self.cli.add_command(Flaskapi_command)  # type: ignore
 
         # Initialize specification JSON
         self.spec_json: Dict = {}
@@ -202,7 +202,7 @@ class OpenAPI(APIScaffold, Flask):
                 self.register_blueprint(bp, url_prefix=self.doc_prefix)
 
             blueprint = Blueprint(
-                "openapi",
+                "Flaskapi",
                 __name__,
                 url_prefix=self.doc_prefix,
                 template_folder=template_folder,
@@ -218,7 +218,7 @@ class OpenAPI(APIScaffold, Flask):
                 rule="/",
                 endpoint=self.doc_prefix.lstrip("/"),
                 view_func=lambda: render_template_string(
-                    self.config.get("OPENAPI_HTML_STRING") or openapi_html_string,
+                    self.config.get("Flaskapi_HTML_STRING") or Flaskapi_html_string,
                     ui_templates=ui_templates
                 )
             )
@@ -229,17 +229,17 @@ class OpenAPI(APIScaffold, Flask):
     @property
     def api_doc(self) -> Dict:
         """
-        Generate the OpenAPI specification JSON.
+        Generate the Flaskapi specification JSON.
 
         Returns:
-            The OpenAPI specification JSON as a dictionary.
+            The Flaskapi specification JSON as a dictionary.
 
         """
         if self.spec_json:
             return self.spec_json
 
         spec = APISpec(
-            openapi=self.openapi_version,
+            Flaskapi=self.Flaskapi_version,
             info=self.info,
             servers=self.severs,
             paths=self.paths,
@@ -265,8 +265,8 @@ class OpenAPI(APIScaffold, Flask):
         # Convert spec to JSON
         self.spec_json = json.loads(spec.model_dump_json(by_alias=True, exclude_none=True, warnings=False))
 
-        # Update with OpenAPI extensions
-        self.spec_json.update(**self.openapi_extensions)
+        # Update with Flaskapi extensions
+        self.spec_json.update(**self.Flaskapi_extensions)
 
         # Handle validation error response
         for rule, path_item in self.spec_json["paths"].items():
@@ -283,7 +283,7 @@ class OpenAPI(APIScaffold, Flask):
                         "application/json": {
                             "schema": {
                                 "type": "array",
-                                "items": {"$ref": f"{OPENAPI3_REF_PREFIX}/{self.validation_error_model.__name__}"}
+                                "items": {"$ref": f"{Flaskapi3_REF_PREFIX}/{self.validation_error_model.__name__}"}
                             }
                         }
                     }
@@ -331,7 +331,7 @@ class OpenAPI(APIScaffold, Flask):
     ) -> None:
         self.add_url_rule(rule, endpoint, view_func, provide_automatic_options, **options)
 
-    def _collect_openapi_info(
+    def _collect_Flaskapi_info(
             self,
             rule: str,
             func: Callable,
@@ -345,12 +345,12 @@ class OpenAPI(APIScaffold, Flask):
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             method: str = HTTPMethod.GET
     ) -> ParametersTuple:
         """
-        Collects OpenAPI specification information for Flask routes and view functions.
+        Collects Flaskapi specification information for Flask routes and view functions.
 
         Args:
             rule: Flask route.
@@ -364,7 +364,7 @@ class OpenAPI(APIScaffold, Flask):
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
             method: HTTP method for the operation. Defaults to GET.
         """
@@ -380,7 +380,7 @@ class OpenAPI(APIScaffold, Flask):
                 func,
                 summary=summary,
                 description=description,
-                openapi_extensions=openapi_extensions
+                Flaskapi_extensions=Flaskapi_extensions
             )
             # Set external docs
             operation.externalDocs = external_docs

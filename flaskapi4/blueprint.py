@@ -45,7 +45,7 @@ class APIBlueprint(APIScaffold, Blueprint):
             abp_tags: APIBlueprint tags for every API.
             abp_security: APIBlueprint security for every API.
             abp_responses: API responses should be either a subclass of BaseModel, a dictionary, or None.
-            doc_ui: Enable OpenAPI document UI (Swagger UI, Redoc, and Rapidoc). Defaults to True.
+            doc_ui: Enable Flaskapi document UI (Swagger UI, Redoc, and Rapidoc). Defaults to True.
             operation_id_callback: Callback function for custom operation_id generation.
                                    Receives name (str), path (str) and method (str) parameters.
                                    Defaults to `get_operation_id_for_path` from utils
@@ -110,7 +110,7 @@ class APIBlueprint(APIScaffold, Blueprint):
     ) -> None:
         self.add_url_rule(rule, endpoint, view_func, provide_automatic_options, **options)
 
-    def _collect_openapi_info(
+    def _collect_Flaskapi_info(
             self,
             rule: str,
             func: Callable,
@@ -124,12 +124,12 @@ class APIBlueprint(APIScaffold, Blueprint):
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             method: str = HTTPMethod.GET
     ) -> ParametersTuple:
         """
-        Collects OpenAPI specification information for Flask routes and view functions.
+        Collects Flaskapi specification information for Flask routes and view functions.
 
         Args:
             rule: Flask route
@@ -143,7 +143,7 @@ class APIBlueprint(APIScaffold, Blueprint):
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
         """
         if self.doc_ui is True and doc_ui is True:
@@ -158,7 +158,7 @@ class APIBlueprint(APIScaffold, Blueprint):
                 func,
                 summary=summary,
                 description=description,
-                openapi_extensions=openapi_extensions
+                Flaskapi_extensions=Flaskapi_extensions
             )
 
             # Set external docs

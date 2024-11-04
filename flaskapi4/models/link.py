@@ -10,7 +10,7 @@ from .server import Server
 
 class Link(BaseModel):
     """
-    https://spec.openapis.org/oas/v3.1.0#link-object
+    https://spec.Flaskapis.org/oas/v3.1.0#link-object
     """
 
     operationRef: Optional[str] = None

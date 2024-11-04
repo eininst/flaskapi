@@ -6,7 +6,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from flaskapi4 import APIBlueprint, OpenAPI
+from flaskapi4 import APIBlueprint, Flaskapi
 from flaskapi4 import Tag, Info
 
 info = Info(title='book API', version='1.0.0')
@@ -18,7 +18,7 @@ jwt = {
 }
 security_schemes = {"jwt": jwt}
 
-app = OpenAPI(__name__, info=info, security_schemes=security_schemes)
+app = Flaskapi(__name__, info=info, security_schemes=security_schemes)
 
 tag = Tag(name='book', description="Some Book")
 security = [{"jwt": []}]
@@ -36,7 +36,7 @@ api = APIBlueprint(
     abp_tags=[tag],
     abp_security=security,
     abp_responses={"401": Unauthorized},
-    # disable openapi UI
+    # disable Flaskapi UI
     doc_ui=True
 )
 
@@ -61,10 +61,9 @@ def create_book(body: BookBody):
     return {"code": 0, "message": "ok"}
 
 
-@api.put('/book/<int:bid>', operation_id='update')
-def update_book(path: Path, body: BookBody):
-    assert path.bid == 1
-    assert body.age == 3
+@api.get('/bookx/<int:bid>', operation_id='update')
+def update_books(bid: int):
+    print(bid)
     return {"code": 0, "message": "ok"}
 
 

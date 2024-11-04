@@ -3,7 +3,7 @@
 # @Time    : 2023/2/16 9:46
 
 
-openapi_html_string = """
+Flaskapi_html_string = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,10 +97,10 @@ a/x3gCx7M2rvrU8m3suK+3w+AcssZ50vnfwAAAABJRU5ErkJggg==
     <div style="color: white; grid-column: span 2; display: flex; flex-direction: column; grid-column-end: 5;">
         <p>Please install at least one optional UI:</p>
         <p style="font-family: Consolas; background-color: #404348; border-radius: 5px; padding: 5px; font-size: 12px">
-        $ pip install -U flask-openapi3[swagger, redoc, rapidoc, rapipdf, scalar, elements]
+        $ pip install -U flask-Flaskapi3[swagger, redoc, rapidoc, rapipdf, scalar, elements]
         </p>
         <p>More optional ui templates goto the document about
-        <a href="https://luolingchun.github.io/flask-openapi3/latest/Usage/UI_Templates/" style="color: #0969da">
+        <a href="https://luolingchun.github.io/flask-Flaskapi3/latest/Usage/UI_Templates/" style="color: #0969da">
         UI_Templates.
         </a>
         </p>

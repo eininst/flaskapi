@@ -9,7 +9,7 @@ from .parameter_in_type import ParameterInType
 
 class Header(Parameter):
     """
-    https://spec.openapis.org/oas/v3.1.0#header-object
+    https://spec.Flaskapis.org/oas/v3.1.0#header-object
     """
 
     name: Optional[str] = None  # type:ignore

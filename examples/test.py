@@ -1,23 +1,3 @@
-## Requirements
-
-Python 3.9+
-
-flaskapi4 is dependent on the following libraries:
-
-- [Flask](https://github.com/pallets/flask) for the web app.
-- [Pydantic](https://github.com/pydantic/pydantic) for the data validation.
-
-## Installation
-
-```bash
-pip install -U flaskapi4
-```
-
-## A Simple Example
-
-Here's a simple example, further go to the [Example](https://luolingchun.github.io/flask-Flaskapi3/latest/Example/).
-
-```python
 from pydantic import BaseModel
 
 from flaskapi4 import Info, Tag
@@ -33,13 +13,15 @@ class BookQuery(BaseModel):
     age: int
     author: str
 
+
 class ResultData(BaseModel):
     code: int
     message: str
     data: dict
-    
-@app.get("/book", summary="get books", tags=[book_tag])
-def get_book(query: BookQuery) -> ResultData:
+
+
+@app.get("/book/<name>", summary="get books", tags=[book_tag])
+def get_book(name, query: BookQuery) -> ResultData:
     """
     to get all books
     """
@@ -55,4 +37,3 @@ def get_book(query: BookQuery) -> ResultData:
 
 if __name__ == "__main__":
     app.run(debug=True)
-```

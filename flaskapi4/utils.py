@@ -16,8 +16,8 @@ from pydantic.json_schema import JsonSchemaMode
 
 from .models import Encoding
 from .models import MediaType
-from .models import OPENAPI3_REF_PREFIX
-from .models import OPENAPI3_REF_TEMPLATE
+from .models import Flaskapi3_REF_PREFIX
+from .models import Flaskapi3_REF_TEMPLATE
 from .models import Operation
 from .models import Parameter
 from .models import ParameterInType
@@ -54,7 +54,7 @@ def get_operation(
         func: Callable, *,
         summary: Optional[str] = None,
         description: Optional[str] = None,
-        openapi_extensions: Optional[Dict[str, Any]] = None,
+        Flaskapi_extensions: Optional[Dict[str, Any]] = None,
 ) -> Operation:
     """
     Return an Operation object with the specified summary and description.
@@ -63,7 +63,7 @@ def get_operation(
         func: The function or method for which the operation is being defined.
         summary: A short summary of what the operation does.
         description: A verbose explanation of the operation behavior.
-        openapi_extensions: Additional extensions to the OpenAPI Schema.
+        Flaskapi_extensions: Additional extensions to the Flaskapi Schema.
 
     Returns:
         An Operation object representing the operation.
@@ -87,8 +87,8 @@ def get_operation(
         description=description or doc_description
     )
 
-    # Add any additional openapi_extensions to the operation dictionary
-    operation_dict.update(openapi_extensions or {})
+    # Add any additional Flaskapi_extensions to the operation dictionary
+    operation_dict.update(Flaskapi_extensions or {})
 
     # Create and return the Operation object
     operation = Operation(**operation_dict)
@@ -117,7 +117,7 @@ def is_package(package_path):
     return os.path.isfile(init_file)
 
 def get_model_schema(model: Type[BaseModel], mode: JsonSchemaMode = "validation") -> dict:
-    """Converts a Pydantic model to an OpenAPI schema."""
+    """Converts a Pydantic model to an Flaskapi schema."""
 
     assert inspect.isclass(model) and issubclass(model, BaseModel), \
         f"{model} is invalid `pydantic.BaseModel`"
@@ -125,7 +125,7 @@ def get_model_schema(model: Type[BaseModel], mode: JsonSchemaMode = "validation"
     model_config = model.model_config
     by_alias = bool(model_config.get("by_alias", True))
 
-    return model.model_json_schema(by_alias=by_alias, ref_template=OPENAPI3_REF_TEMPLATE, mode=mode)
+    return model.model_json_schema(by_alias=by_alias, ref_template=Flaskapi3_REF_TEMPLATE, mode=mode)
 
 
 def parse_header(header: Type[BaseModel]) -> Tuple[List[Parameter], dict]:
@@ -271,7 +271,7 @@ def parse_form(
             encoding[k] = Encoding(style="form", explode=True)
     content = {
         "multipart/form-data": MediaType(
-            schema=Schema(**{"$ref": f"{OPENAPI3_REF_PREFIX}/{title}"}),
+            schema=Schema(**{"$ref": f"{Flaskapi3_REF_PREFIX}/{title}"}),
             encoding=encoding or None
         )
     }
@@ -296,7 +296,7 @@ def parse_body(
     components_schemas[title] = Schema(**schema)
     content = {
         "application/json": MediaType(
-            schema=Schema(**{"$ref": f"{OPENAPI3_REF_PREFIX}/{title}"})
+            schema=Schema(**{"$ref": f"{Flaskapi3_REF_PREFIX}/{title}"})
         )
     }
 
@@ -324,14 +324,14 @@ def get_responses(
             response["description"] = response.get("description", HTTP_STATUS.get(key, ""))
             _responses[key] = Response(**response)
         else:
-            # OpenAPI 3 support ^[a-zA-Z0-9\.\-_]+$ so we should normalize __name__
+            # Flaskapi 3 support ^[a-zA-Z0-9\.\-_]+$ so we should normalize __name__
             name = normalize_name(response.__name__)
-            openapi_extra = ""
+            Flaskapi_extra = ""
 
             if inspect.isclass(response) and issubclass(response, BaseModel):
                 schema = get_model_schema(response, mode="serialization")
                 model_config: DefaultDict[str, Any] = response.model_config  # type: ignore
-                openapi_extra = model_config.get("openapi_extra")
+                Flaskapi_extra = model_config.get("Flaskapi_extra")
 
                 _schemas[name] = Schema(**schema)
                 definitions = schema.get("$defs")
@@ -347,20 +347,20 @@ def get_responses(
                 description=HTTP_STATUS.get(key, ""),
                 content={
                     "application/json": MediaType(
-                        schema=Schema(**{"$ref": f"{OPENAPI3_REF_PREFIX}/{name}"})
+                        schema=Schema(**{"$ref": f"{Flaskapi3_REF_PREFIX}/{name}"})
                     )})
 
-            if openapi_extra:
+            if Flaskapi_extra:
                 # Add additional information from model_config to the response
-                _responses[key].description = openapi_extra.get("description")
-                _responses[key].headers = openapi_extra.get("headers")
-                _responses[key].links = openapi_extra.get("links")
+                _responses[key].description = Flaskapi_extra.get("description")
+                _responses[key].headers = Flaskapi_extra.get("headers")
+                _responses[key].links = Flaskapi_extra.get("links")
                 _content = _responses[key].content
                 if _content is not None:
-                    _content["application/json"].example = openapi_extra.get("example")
-                    _content["application/json"].examples = openapi_extra.get("examples")
-                    _content["application/json"].encoding = openapi_extra.get("encoding")
-                    _content.update(openapi_extra.get("content", {}))
+                    _content["application/json"].example = Flaskapi_extra.get("example")
+                    _content["application/json"].examples = Flaskapi_extra.get("examples")
+                    _content["application/json"].encoding = Flaskapi_extra.get("encoding")
+                    _content.update(Flaskapi_extra.get("content", {}))
 
     components_schemas.update(**_schemas)
     operation.responses = _responses
@@ -470,13 +470,13 @@ def parse_parameters(
         components_schemas.update(**_components_schemas)
         request_body = RequestBody(content=_content)
         model_config: DefaultDict[str, Any] = form.model_config  # type: ignore
-        openapi_extra = model_config.get("openapi_extra")
-        if openapi_extra:
-            request_body.description = openapi_extra.get("description")
-            request_body.content["multipart/form-data"].example = openapi_extra.get("example")
-            request_body.content["multipart/form-data"].examples = openapi_extra.get("examples")
-            if openapi_extra.get("encoding"):
-                request_body.content["multipart/form-data"].encoding = openapi_extra.get("encoding")
+        Flaskapi_extra = model_config.get("Flaskapi_extra")
+        if Flaskapi_extra:
+            request_body.description = Flaskapi_extra.get("description")
+            request_body.content["multipart/form-data"].example = Flaskapi_extra.get("example")
+            request_body.content["multipart/form-data"].examples = Flaskapi_extra.get("examples")
+            if Flaskapi_extra.get("encoding"):
+                request_body.content["multipart/form-data"].encoding = Flaskapi_extra.get("encoding")
         operation.requestBody = request_body
 
     if body:
@@ -484,13 +484,13 @@ def parse_parameters(
         components_schemas.update(**_components_schemas)
         request_body = RequestBody(content=_content)
         model_config: DefaultDict[str, Any] = body.model_config  # type: ignore
-        openapi_extra = model_config.get("openapi_extra")
-        if openapi_extra:
-            request_body.description = openapi_extra.get("description")
-            request_body.required = openapi_extra.get("required", True)
-            request_body.content["application/json"].example = openapi_extra.get("example")
-            request_body.content["application/json"].examples = openapi_extra.get("examples")
-            request_body.content["application/json"].encoding = openapi_extra.get("encoding")
+        Flaskapi_extra = model_config.get("Flaskapi_extra")
+        if Flaskapi_extra:
+            request_body.description = Flaskapi_extra.get("description")
+            request_body.required = Flaskapi_extra.get("required", True)
+            request_body.content["application/json"].example = Flaskapi_extra.get("example")
+            request_body.content["application/json"].examples = Flaskapi_extra.get("examples")
+            request_body.content["application/json"].encoding = Flaskapi_extra.get("encoding")
         operation.requestBody = request_body
 
     if raw:

@@ -6,7 +6,7 @@ import orjson
 from flask.json.provider import JSONProvider
 
 from flaskapi4 import Info
-from flaskapi4 import OpenAPI
+from flaskapi4 import Flaskapi
 
 
 class OrJSONProvider(JSONProvider):
@@ -21,7 +21,7 @@ class OrJSONProvider(JSONProvider):
 
 
 info = Info(title='book API', version='1.0.0')
-app = OpenAPI(__name__, info=info)
+app = Flaskapi(__name__, info=info)
 # use orjson
 orjson_provider = OrJSONProvider(app)
 app.json = orjson_provider

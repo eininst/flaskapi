@@ -9,9 +9,9 @@ from flask import make_response
 from pydantic import BaseModel, Field
 
 from flaskapi4 import Info
-from flaskapi4 import OpenAPI, APIBlueprint
+from flaskapi4 import Flaskapi, APIBlueprint
 
-app = OpenAPI(__name__, info=Info(title="Hello API", version="1.0.0"))
+app = Flaskapi(__name__, info=Info(title="Hello API", version="1.0.0"))
 
 bp = APIBlueprint("Hello BP", __name__)
 
@@ -24,7 +24,7 @@ class Message(BaseModel):
     message: str = Field(..., description="The message")
 
     model_config = dict(
-        openapi_extra={
+        Flaskapi_extra={
             # "example": {"message": "aaa"},
             "examples": {
                 "example1": {

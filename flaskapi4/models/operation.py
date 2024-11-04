@@ -17,7 +17,7 @@ from .server import Server
 
 class Operation(BaseModel):
     """
-    https://spec.openapis.org/oas/v3.1.0#operation-object
+    https://spec.Flaskapis.org/oas/v3.1.0#operation-object
     """
 
     tags: Optional[List[str]] = None

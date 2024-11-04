@@ -2,11 +2,11 @@
 # @Author  : llc
 # @Time    : 2021/4/28 10:58
 """
-OpenAPI v3.1.0 schema types, created according to the specification:
-https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
+Flaskapi v3.1.0 schema types, created according to the specification:
+https://github.com/OAI/Flaskapi-Specification/blob/main/versions/3.1.0.md
 
 The type orders are according to the contents of the specification:
-https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#table-of-contents
+https://github.com/OAI/Flaskapi-Specification/blob/main/versions/3.1.0.md#table-of-contents
 """
 
 from typing import Optional, List, Dict
@@ -49,13 +49,13 @@ from .validation_error import UnprocessableEntity
 from .validation_error import ValidationErrorModel
 from .xml import XML
 
-OPENAPI3_REF_PREFIX = "#/components/schemas"
-OPENAPI3_REF_TEMPLATE = OPENAPI3_REF_PREFIX + "/{model}"
+Flaskapi3_REF_PREFIX = "#/components/schemas"
+Flaskapi3_REF_TEMPLATE = Flaskapi3_REF_PREFIX + "/{model}"
 
 
 class APISpec(BaseModel):
-    """https://spec.openapis.org/oas/v3.1.0#openapi-object"""
-    openapi: str
+    """https://spec.Flaskapis.org/oas/v3.1.0#Flaskapi-object"""
+    Flaskapi: str
     info: Info
     servers: Optional[List[Server]] = None
     paths: Paths

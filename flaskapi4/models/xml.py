@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 class XML(BaseModel):
     """
-    https://spec.openapis.org/oas/v3.1.0#xml-object
+    https://spec.Flaskapis.org/oas/v3.1.0#xml-object
     """
 
     name: Optional[str] = None

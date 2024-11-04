@@ -5,6 +5,7 @@ import inspect
 from functools import wraps
 from typing import Callable, List, Optional, Dict, Any
 
+from flask import current_app
 from flask.wrappers import Response as FlaskResponse
 
 from .models import ExternalDocumentation
@@ -17,7 +18,7 @@ from .utils import HTTPMethod
 
 
 class APIScaffold:
-    def _collect_openapi_info(
+    def _collect_Flaskapi_info(
             self,
             rule: str,
             func: Callable,
@@ -31,7 +32,7 @@ class APIScaffold:
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             method: str = HTTPMethod.GET
     ) -> ParametersTuple:
@@ -135,13 +136,13 @@ class APIScaffold:
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             **options: Any
     ) -> Callable:
         """
         Decorator for defining a REST API endpoint with the HTTP GET method.
-        More information goto https://spec.openapis.org/oas/v3.1.0#operation-object
+        More information goto https://spec.Flaskapis.org/oas/v3.1.0#operation-object
 
         Args:
             rule: The URL rule string.
@@ -154,7 +155,7 @@ class APIScaffold:
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
         """
 
@@ -167,7 +168,7 @@ class APIScaffold:
                     __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
-                self._collect_openapi_info(
+                self._collect_Flaskapi_info(
                     rule,
                     func,
                     tags=tags,
@@ -179,7 +180,7 @@ class APIScaffold:
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
-                    openapi_extensions=openapi_extensions,
+                    Flaskapi_extensions=Flaskapi_extensions,
                     doc_ui=doc_ui,
                     method=HTTPMethod.GET
                 )
@@ -205,13 +206,13 @@ class APIScaffold:
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             **options: Any
     ) -> Callable:
         """
         Decorator for defining a REST API endpoint with the HTTP POST method.
-        More information goto https://spec.openapis.org/oas/v3.1.0#operation-object
+        More information goto https://spec.Flaskapis.org/oas/v3.1.0#operation-object
 
         Args:
             rule: The URL rule string.
@@ -224,7 +225,7 @@ class APIScaffold:
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
         """
 
@@ -237,7 +238,7 @@ class APIScaffold:
                     __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
-                self._collect_openapi_info(
+                self._collect_Flaskapi_info(
                     rule,
                     func,
                     tags=tags,
@@ -249,7 +250,7 @@ class APIScaffold:
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
-                    openapi_extensions=openapi_extensions,
+                    Flaskapi_extensions=Flaskapi_extensions,
                     doc_ui=doc_ui,
                     method=HTTPMethod.POST
                 )
@@ -275,13 +276,13 @@ class APIScaffold:
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             **options: Any
     ) -> Callable:
         """
         Decorator for defining a REST API endpoint with the HTTP PUT method.
-        More information goto https://spec.openapis.org/oas/v3.1.0#operation-object
+        More information goto https://spec.Flaskapis.org/oas/v3.1.0#operation-object
 
         Args:
             rule: The URL rule string.
@@ -294,7 +295,7 @@ class APIScaffold:
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
         """
 
@@ -306,7 +307,7 @@ class APIScaffold:
                     __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
-                self._collect_openapi_info(
+                self._collect_Flaskapi_info(
                     rule,
                     func,
                     tags=tags,
@@ -318,7 +319,7 @@ class APIScaffold:
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
-                    openapi_extensions=openapi_extensions,
+                    Flaskapi_extensions=Flaskapi_extensions,
                     doc_ui=doc_ui,
                     method=HTTPMethod.PUT
                 )
@@ -344,13 +345,13 @@ class APIScaffold:
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             **options: Any
     ) -> Callable:
         """
         Decorator for defining a REST API endpoint with the HTTP DELETE method.
-        More information goto https://spec.openapis.org/oas/v3.1.0#operation-object
+        More information goto https://spec.Flaskapis.org/oas/v3.1.0#operation-object
 
         Args:
             rule: The URL rule string.
@@ -363,7 +364,7 @@ class APIScaffold:
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
         """
 
@@ -375,7 +376,7 @@ class APIScaffold:
                     __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
-                self._collect_openapi_info(
+                self._collect_Flaskapi_info(
                     rule,
                     func,
                     tags=tags,
@@ -387,7 +388,7 @@ class APIScaffold:
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
-                    openapi_extensions=openapi_extensions,
+                    Flaskapi_extensions=Flaskapi_extensions,
                     doc_ui=doc_ui,
                     method=HTTPMethod.DELETE
                 )
@@ -413,13 +414,13 @@ class APIScaffold:
             deprecated: Optional[bool] = None,
             security: Optional[List[Dict[str, List[Any]]]] = None,
             servers: Optional[List[Server]] = None,
-            openapi_extensions: Optional[Dict[str, Any]] = None,
+            Flaskapi_extensions: Optional[Dict[str, Any]] = None,
             doc_ui: bool = True,
             **options: Any
     ) -> Callable:
         """
         Decorator for defining a REST API endpoint with the HTTP PATCH method.
-        More information goto https://spec.openapis.org/oas/v3.1.0#operation-object
+        More information goto https://spec.Flaskapis.org/oas/v3.1.0#operation-object
 
         Args:
             rule: The URL rule string.
@@ -432,7 +433,7 @@ class APIScaffold:
             deprecated: Declares this operation to be deprecated.
             security: A declaration of which security mechanisms can be used for this operation.
             servers: An alternative server array to service this operation.
-            openapi_extensions: Allows extensions to the OpenAPI Schema.
+            Flaskapi_extensions: Allows extensions to the Flaskapi Schema.
             doc_ui: Declares this operation to be shown. Default to True.
         """
 
@@ -444,7 +445,7 @@ class APIScaffold:
                     __responses = {'200': annotations['return']}
 
             header, cookie, path, query, form, body, raw = \
-                self._collect_openapi_info(
+                self._collect_Flaskapi_info(
                     rule,
                     func,
                     tags=tags,
@@ -456,7 +457,7 @@ class APIScaffold:
                     deprecated=deprecated,
                     security=security,
                     servers=servers,
-                    openapi_extensions=openapi_extensions,
+                    Flaskapi_extensions=Flaskapi_extensions,
                     doc_ui=doc_ui,
                     method=HTTPMethod.PATCH
                 )

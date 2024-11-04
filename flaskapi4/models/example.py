@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 class Example(BaseModel):
     """
-    https://spec.openapis.org/oas/v3.1.0#example-object
+    https://spec.Flaskapis.org/oas/v3.1.0#example-object
     """
 
     summary: Optional[str] = None

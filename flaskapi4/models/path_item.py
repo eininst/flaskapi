@@ -16,7 +16,7 @@ if typing.TYPE_CHECKING:  # pragma: no cover
 
 class PathItem(BaseModel):
     """
-    https://spec.openapis.org/oas/v3.1.0#path-item-object
+    https://spec.Flaskapis.org/oas/v3.1.0#path-item-object
     """
     ref: Optional[str] = Field(default=None, alias="$ref")
     summary: Optional[str] = None

@@ -7,7 +7,7 @@ from .external_documentation import ExternalDocumentation
 
 class Tag(BaseModel):
     """
-    https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tag-object
+    https://github.com/OAI/Flaskapi-Specification/blob/main/versions/3.1.0.md#tag-object
     """
 
     name: str
