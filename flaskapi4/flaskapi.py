@@ -145,14 +145,17 @@ class Flaskapi(APIScaffold, Flask):
         self.validation_error_callback = validation_error_callback
 
         # Initialize the Flaskapi documentation UI
-        if doc_ui:
-            self._init_doc()
+        # if doc_ui:
+        #     self._init_doc()
 
         # Add the Flaskapi command
         self.cli.add_command(Flaskapi_command)  # type: ignore
 
         # Initialize specification JSON
         self.spec_json: Dict = {}
+
+    def init_doc(self):
+        self._init_doc()
 
     def _init_doc(self) -> None:
         """

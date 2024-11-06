@@ -10,7 +10,7 @@ class Unauthorized(BaseModel):
 info = Info(title="book API", version="1.0.0")
 app = Flaskapi(__name__,
               info=info, responses={"401": Unauthorized})
-
+# app.init_doc()
 book_tag = Tag(name="book", description="Some Book")
 
 
