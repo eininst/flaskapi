@@ -72,9 +72,13 @@ class APIScaffold:
                     header=header,
                     cookie=cookie,
                     path=path,
+                    p=path,
                     query=query,
+                    q=query,
                     form=form,
+                    f=form,
                     body=body,
+                    b=body,
                     raw=raw,
                     path_kwargs=kwargs
                 )
@@ -98,9 +102,13 @@ class APIScaffold:
                     header=header,
                     cookie=cookie,
                     path=path,
+                    p=path,
                     query=query,
+                    q=query,
                     form=form,
+                    f=form,
                     body=body,
+                    b=body,
                     raw=raw,
                     path_kwargs=kwargs
                 )

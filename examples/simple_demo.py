@@ -19,8 +19,8 @@ class BookQuery(BaseModel):
     author: str
 
 
-@app.get("/Flaskapi", summary="get books", tags=[book_tag])
-def get_book(query: BookQuery) :
+@app.route("/Flaskapi",)
+def get_book() :
     """
     get all books
     """
@@ -29,11 +29,11 @@ def get_book(query: BookQuery) :
         "code": 0,
         "message": "ok",
         "data": [
-            {"bid": 1, "age": query.age, "author": query.author},
-            {"bid": 2, "age": query.age, "author": query.author}
+
         ]
     }
 
 
 if __name__ == "__main__":
+    app.init_doc()
     app.run(debug=True, port=5001)

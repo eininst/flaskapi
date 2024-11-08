@@ -130,9 +130,13 @@ def _validate_request(
         header: Optional[Type[BaseModel]] = None,
         cookie: Optional[Type[BaseModel]] = None,
         path: Optional[Type[BaseModel]] = None,
+        p: Optional[Type[BaseModel]] = None,
         query: Optional[Type[BaseModel]] = None,
+        q: Optional[Type[BaseModel]] = None,
         form: Optional[Type[BaseModel]] = None,
+        f: Optional[Type[BaseModel]] = None,
         body: Optional[Type[BaseModel]] = None,
+        b: Optional[Type[BaseModel]] = None,
         raw: Optional[Type[BaseModel]] = None,
         path_kwargs: Optional[Dict[Any, Any]] = None
 ) -> Dict:
@@ -166,14 +170,22 @@ def _validate_request(
             _validate_cookie(cookie, func_kwargs)
         if path:
             _validate_path(path, path_kwargs or {}, func_kwargs)
+        elif p:
+            _validate_path(p, path_kwargs or {}, func_kwargs)
         elif path_kwargs:
             func_kwargs.update(path_kwargs)
         if query:
             _validate_query(query, func_kwargs)
+        elif q:
+            _validate_query(q, func_kwargs)
         if form:
             _validate_form(form, func_kwargs)
+        elif f:
+            _validate_form(f, func_kwargs)
         if body:
             _validate_body(body, func_kwargs)
+        elif b:
+            _validate_body(b, func_kwargs)
         if raw:
             func_kwargs["raw"] = request
     except ValidationError as e:
