@@ -16,22 +16,16 @@ book_tag = Tag(name="book", description="Some Book")
 
 class BookQuery(BaseModel):
     age: int
-    author: str
+    author: str=''
 
 
-@app.route("/Flaskapi",)
-def get_book() :
+@app.get("/test",)
+def get_book(query:BookQuery) :
     """
     get all books
     """
 
-    return {
-        "code": 0,
-        "message": "ok",
-        "data": [
-
-        ]
-    }
+    return BookQuery(age=1)
 
 
 if __name__ == "__main__":

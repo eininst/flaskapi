@@ -7,6 +7,7 @@ from typing import Callable, List, Optional, Dict, Any
 
 from flask import current_app
 from flask.wrappers import Response as FlaskResponse
+from pydantic import BaseModel
 
 from .models import ExternalDocumentation
 from .models import Server
@@ -72,13 +73,9 @@ class APIScaffold:
                     header=header,
                     cookie=cookie,
                     path=path,
-                    p=path,
                     query=query,
-                    q=query,
                     form=form,
-                    f=form,
                     body=body,
-                    b=body,
                     raw=raw,
                     path_kwargs=kwargs
                 )
@@ -102,13 +99,9 @@ class APIScaffold:
                     header=header,
                     cookie=cookie,
                     path=path,
-                    p=path,
                     query=query,
-                    q=query,
                     form=form,
-                    f=form,
                     body=body,
-                    b=body,
                     raw=raw,
                     path_kwargs=kwargs
                 )
@@ -124,6 +117,10 @@ class APIScaffold:
                     response = func(view_object, **func_kwargs)
                 else:
                     response = func(**func_kwargs)
+
+                if isinstance(response,BaseModel):
+                    response = response.model_dump()
+
                 return response
 
         if not hasattr(func, "view"):
